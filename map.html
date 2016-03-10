@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Simple Google Map</title>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI7Oqc8GxGvOPbRqODPnvCryxpy7IfEUM&sensor=true"></script>
+<script type="text/javascript">
+// Google Map Maker script v.4
+// (c) 2014 Richard Stephenson
+// http://mapmaker.donkeymagic.co.uk
+var map
+    openInfowindow = null
+    newPoints = [];
+
+function initialize () {
+    var mapOptions = {
+        center: new google.maps.LatLng(47.65489497268726, -122.30718612670898),
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        streetViewControl: false
+    };
+    map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+    addPoints();
+}
+
+function addPoints () {
+  newPoints[0] = [47.655866979762315, -122.30949215590954, 'Red Square', '<p class="title">Red Square</p> <p class="sub">Recording Date: <span class="info">Tuesday 3/8/16</span></p> <p class="sub">Time: <span class="info">4:07pm</span></p> <audio controls><source src="audio/red-square.wav" type="audio/wav"></audio> <p class="sub">Description: <span class="info">Entering Red Square from the Quad, greeted by the sounds of skateboarders and a flock of seagulls. A few gusts of wind were not too friendly to my Tascam recorder. At around 2:00, there seemed to be mysterious audio interference. </span></p> <p>Contributor: <span>Matt Sablan</span></p>'];
+  newPoints[1] = [47.655866979762315, -122.30949215590954, 'Red Square', '<p class="title">Red Square</p> <p class="sub">Recording Date: <span class="info">Tuesday 3/8/16</span></p> <p class="sub">Time: <span class="info">4:07pm</span></p> <audio controls><source src="audio/red-square.wav" type="audio/wav"></audio> <p class="sub">Description: <span class="info">Entering Red Square from the Quad, greeted by the sounds of skateboarders and a flock of seagulls. A few gusts of wind were not too friendly to my Tascam recorder. At around 2:00, there seemed to be mysterious audio interference. </span></p> <p>Contributor: <span>Matt Sablan</span></p>'];
+  
+
+    for (var i = 0; i < newPoints.length; i++) {
+        var position = new google.maps.LatLng(newPoints[i][0], newPoints[i][1]);
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map
+        });
+        createMarker(marker, i);
+    }
+}
+
+function createMarker (marker, i) {
+    var infowindow = new google.maps.InfoWindow({
+        content: '<div class="popup">' + newPoints[i][3] + '</div>',
+    });
+    google.maps.event.addListener(marker, 'click', function () {
+        if (openInfowindow) {
+            openInfowindow.close();
+        }
+        infowindow.open(marker.getMap('map_canvas'), marker);
+        openInfowindow = infowindow;
+    });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+div.popup {
+    font-size: 14px;
+    margin: 0;
+    width: 270px;
+}
+div.popup p {
+    background-color: #FFF;
+    color: #333;
+    font-size: 12px;
+    line-height: 15px;
+}
+div.popup p a {
+    color: #1122CC;
+}
+</style>
+
+</head>
+
+<body>
+    <div id="map_canvas" style="width:700px; height:500px"></div>
+</body>
+
+</html>
