@@ -87,5 +87,8 @@ audio {
   width: 100%;
   padding: 4% 0;
 }
-
+.alert {
+  color: #E9D3A2;
+  padding: 2% 10%;
+}
 
